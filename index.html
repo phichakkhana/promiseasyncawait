@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload="getInfo()">
+    <div id=display>
+    </div>
+</body>
+<script>
+    async function getInfo() {
+        await axios.get("https://reqres.in/api/users/5").then(res => {
+            displayInfo(res.data.data)
+        }).catch(err => {
+            document.getElementById('display').innerHTML = "Error: " + err
+        })
+    }
+    function displayInfo(info) {
+        let output = document.getElementById('display')
+        let content
+        
+        content = document.createElement('img')
+        content.src = info.avatar
+        output.appendChild(content)
+
+        content = document.createElement('h3')
+        content.innerHTML = info.first_name + " " + info.last_name
+        output.appendChild(content)
+
+        content = document.createElement('p')
+        content.innerHTML = info.email
+        output.appendChild(content)
+    }
+</script>
+
+</html>
